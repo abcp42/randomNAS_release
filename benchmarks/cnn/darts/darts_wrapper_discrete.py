@@ -27,7 +27,7 @@ class AttrDict(dict):
 class DartsWrapper:
     def __init__(self, save_path, seed, batch_size, grad_clip, epochs, resume_iter=None, init_channels=16):
         args = {}
-        args['data'] = '/home/liamli4465/darts/data/'
+        args['data'] = '/content/randomNAS_release/sample_data/'
         args['epochs'] = epochs
         args['learning_rate'] = 0.025
         args['batch_size'] = batch_size
