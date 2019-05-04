@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/home/liamli4465/darts/cnn')
+sys.path.append('/content/darts/cnn')
 import genotypes
 from model_search import Network
 import utils
