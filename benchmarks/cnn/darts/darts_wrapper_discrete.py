@@ -63,6 +63,7 @@ class DartsWrapper:
 
         train_transform, valid_transform = utils._data_transforms_cifar10(args)
         train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
+        print('loaded data')
 
         num_train = len(train_data)
         indices = list(range(num_train))
@@ -88,11 +89,12 @@ class DartsWrapper:
         criterion = nn.CrossEntropyLoss()
         criterion = criterion.cuda()
         self.criterion = criterion
-
+        print('model initializing')
         model = Network(args.init_channels, 10, args.layers, self.criterion)
 
         model = model.cuda()
         self.model = model
+        print('model initialized')
 
         try:
             self.load()
