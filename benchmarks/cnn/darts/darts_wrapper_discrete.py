@@ -67,6 +67,8 @@ class DartsWrapper:
         num_train = len(train_data)
         indices = list(range(num_train))
         split = int(np.floor(args.train_portion * num_train))
+        
+        print('data loaded')
 
         self.train_queue = torch.utils.data.DataLoader(
           train_data, batch_size=args.batch_size,
@@ -88,11 +90,12 @@ class DartsWrapper:
         criterion = nn.CrossEntropyLoss()
         criterion = criterion.cuda()
         self.criterion = criterion
-
+        print('model initiation')
         model = Network(args.init_channels, 10, args.layers, self.criterion)
 
         model = model.cuda()
         self.model = model
+        print('model initialized')
 
         try:
             self.load()
