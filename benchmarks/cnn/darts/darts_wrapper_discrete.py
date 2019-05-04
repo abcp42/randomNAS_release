@@ -62,7 +62,7 @@ class DartsWrapper:
 
 
         train_transform, valid_transform = utils._data_transforms_cifar10(args)
-        train_data = dset.CIFAR10(root=args.data, train=True, download=False, transform=train_transform)
+        train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
 
         num_train = len(train_data)
         indices = list(range(num_train))
