@@ -69,18 +69,18 @@ class DartsWrapper:
         #indices = list(range(num_train))
         #split = int(np.floor(args.train_portion * num_train))
 
-        #self.train_queue = torch.utils.data.DataLoader(
-        #  train_data, batch_size=args.batch_size,
-        #  sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[:split]),
-        #  pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
+        self.train_queue = torch.utils.data.DataLoader(
+          train_data, batch_size=args.batch_size,
+          sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[:split]),
+          pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
 
-        #self.valid_queue = torch.utils.data.DataLoader(
-        #  train_data, batch_size=args.batch_size,
-        #  sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[split:num_train]),
-        #  pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
+        self.valid_queue = torch.utils.data.DataLoader(
+          train_data, batch_size=args.batch_size,
+          sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[split:num_train]),
+          pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
         
-        self.train_queue = dset.ImageFolder('/content/dataset_color_static/train')
-        self.valid_queue = dset.ImageFolder('/content/dataset_color_static/test')
+        #self.train_queue = dset.ImageFolder('/content/dataset_color_static/train')
+        #self.valid_queue = dset.ImageFolder('/content/dataset_color_static/test')
 
         self.train_iter = iter(self.train_queue)
         self.valid_iter = iter(self.valid_queue)
@@ -153,6 +153,7 @@ class DartsWrapper:
 
       self.model.train()
       print('input: ',input)
+      a = 2/0
       n = input.size(0)
 
       input = Variable(input, requires_grad=False).cuda()
