@@ -167,7 +167,8 @@ class DartsWrapper:
       input, target = next(self.train_iter)
 
       self.model.train()
-      print('input: ',input.shape)
+      print('input: ',input.shape)#input:  torch.Size([16, 3, 480, 640])
+      a = 2/0
       n = input.size(0)
 
       input = Variable(input, requires_grad=False).cuda()
