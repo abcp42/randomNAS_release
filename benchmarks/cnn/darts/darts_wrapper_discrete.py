@@ -168,7 +168,7 @@ class DartsWrapper:
       input, target = next(self.train_iter)
 
       self.model.train()
-      print('input: ',input.shape)#input:  torch.Size([16, 3, 480, 640]) , input:  torch.Size([16, 3, 32, 32]) input:  torch.Size([16, 3, 32, 32])
+      #print('input: ',input.shape)#input:  torch.Size([16, 3, 480, 640]) , input:  torch.Size([16, 3, 32, 32]) input:  torch.Size([16, 3, 32, 32])
       #a = 2/0
       n = input.size(0)
 
