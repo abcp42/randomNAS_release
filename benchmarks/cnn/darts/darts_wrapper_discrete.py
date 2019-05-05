@@ -219,6 +219,9 @@ class DartsWrapper:
         n_batches = 10
       else:
         n_batches = len(self.valid_queue)
+      
+      print('n_batches:',n_batches)
+      print('valid:',len(self.valid_queue))
 
       for step in range(n_batches):
         try:
