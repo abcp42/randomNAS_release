@@ -152,6 +152,7 @@ class DartsWrapper:
       input, target = next(self.train_iter)
 
       self.model.train()
+      print('input: ',input)
       n = input.size(0)
 
       input = Variable(input, requires_grad=False).cuda()
