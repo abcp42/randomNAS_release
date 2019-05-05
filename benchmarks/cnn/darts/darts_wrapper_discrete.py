@@ -61,13 +61,13 @@ class DartsWrapper:
         torch.cuda.manual_seed_all(args.seed)
 
 
-        #train_transform, valid_transform = utils._data_transforms_cifar10(args)
-        #train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
+        train_transform, valid_transform = utils._data_transforms_cifar10(args)
+        train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
         print('loaded data')
 
-        #num_train = len(train_data)
-        #indices = list(range(num_train))
-        #split = int(np.floor(args.train_portion * num_train))
+        num_train = len(train_data)
+        indices = list(range(num_train))
+        split = int(np.floor(args.train_portion * num_train))
 
         self.train_queue = torch.utils.data.DataLoader(
           train_data, batch_size=args.batch_size,
