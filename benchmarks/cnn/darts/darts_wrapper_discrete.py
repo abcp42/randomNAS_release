@@ -220,6 +220,8 @@ class DartsWrapper:
       else:
         n_batches = len(self.valid_queue)
       
+      #mamas
+      n_batches = len(self.valid_queue)
       print('n_batches:',n_batches)
       print('valid:',len(self.valid_queue))
 
