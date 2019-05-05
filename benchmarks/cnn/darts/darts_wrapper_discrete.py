@@ -164,9 +164,12 @@ class DartsWrapper:
       self.optimizer.step()
 
       prec1, prec5 = utils.accuracy(logits, target, topk=(1, 5))
-      self.objs.update(loss.data[0], n)
-      self.top1.update(prec1.data[0], n)
-      self.top5.update(prec5.data[0], n)
+      #self.objs.update(loss.data[0], n)
+      #self.top1.update(prec1.data[0], n)
+      #self.top5.update(prec5.data[0], n)
+      self.objs.update(loss.data, n)
+      self.top1.update(prec1.data, n)
+      self.top5.update(prec5.data, n)
 
       if step % args.report_freq == 0:
         logging.info('train %03d %e %f %f', step, self.objs.avg, self.top1.avg, self.top5.avg)
