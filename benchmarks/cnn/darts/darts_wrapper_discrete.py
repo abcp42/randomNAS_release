@@ -79,8 +79,14 @@ class DartsWrapper:
           sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[split:num_train]),
           pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
         """
-        train_data = dset.ImageFolder('/content/dataset_color_static/train')
-        valid_data = dset.ImageFolder('/content/dataset_color_static/test')
+        from torchvision import transforms
+
+        t = transforms.Compose([
+            # you can add other transformations in this list
+            transforms.ToTensor()
+        ])
+        train_data = dset.ImageFolder('/content/dataset_color_static/train',transform=t)
+        valid_data = dset.ImageFolder('/content/dataset_color_static/test',transform=t)
         print('loaded data')
         self.train_queue = torch.utils.data.DataLoader(
           train_data, batch_size=args.batch_size,
