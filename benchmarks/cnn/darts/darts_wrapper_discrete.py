@@ -61,23 +61,26 @@ class DartsWrapper:
         torch.cuda.manual_seed_all(args.seed)
 
 
-        train_transform, valid_transform = utils._data_transforms_cifar10(args)
-        train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
+        #train_transform, valid_transform = utils._data_transforms_cifar10(args)
+        #train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
         print('loaded data')
 
-        num_train = len(train_data)
-        indices = list(range(num_train))
-        split = int(np.floor(args.train_portion * num_train))
+        #num_train = len(train_data)
+        #indices = list(range(num_train))
+        #split = int(np.floor(args.train_portion * num_train))
 
-        self.train_queue = torch.utils.data.DataLoader(
-          train_data, batch_size=args.batch_size,
-          sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[:split]),
-          pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
+        #self.train_queue = torch.utils.data.DataLoader(
+        #  train_data, batch_size=args.batch_size,
+        #  sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[:split]),
+        #  pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
 
-        self.valid_queue = torch.utils.data.DataLoader(
-          train_data, batch_size=args.batch_size,
-          sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[split:num_train]),
-          pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
+        #self.valid_queue = torch.utils.data.DataLoader(
+        #  train_data, batch_size=args.batch_size,
+        #  sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[split:num_train]),
+        #  pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
+        
+        self.train_queue = torchvision.datasets.ImageFolder('/content/dataset_color/train')
+        self.valid_queue = torchvision.datasets.ImageFolder('/content/dataset_color/test')
 
         self.train_iter = iter(self.train_queue)
         self.valid_iter = iter(self.valid_queue)
@@ -214,12 +217,9 @@ class DartsWrapper:
 
         prec1, prec5 = utils.accuracy(logits, target, topk=(1, 5))
         n = input.size(0)
-        #objs.update(loss.data[0], n)
-        #top1.update(prec1.data[0], n)
-        #top5.update(prec5.data[0], n)
-        objs.update(loss.data, n)
-        top1.update(prec1.data, n)
-        top5.update(prec5.data, n)
+        objs.update(loss.data[0], n)
+        top1.update(prec1.data[0], n)
+        top5.update(prec5.data[0], n)
 
         if step % self.args.report_freq == 0:
           logging.info('valid %03d %e %f %f', step, objs.avg, top1.avg, top5.avg)
