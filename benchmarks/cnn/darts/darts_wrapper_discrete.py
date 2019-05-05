@@ -83,7 +83,7 @@ class DartsWrapper:
 
         t = transforms.Compose([
             # you can add other transformations in this list
-            transforms.Resize((128,128), interpolation=2),
+            transforms.Resize((64,64), interpolation=2),
             transforms.ToTensor()
         ])
         train_data = dset.ImageFolder('/content/dataset_color/train',transform=t)
