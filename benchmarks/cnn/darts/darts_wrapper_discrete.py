@@ -86,8 +86,8 @@ class DartsWrapper:
             transforms.Resize((32,32), interpolation=2),
             transforms.ToTensor()
         ])
-        train_data = dset.ImageFolder('/content/dataset_color_static/train',transform=t)
-        valid_data = dset.ImageFolder('/content/dataset_color_static/test',transform=t)
+        train_data = dset.ImageFolder('/content/dataset_color/train',transform=t)
+        valid_data = dset.ImageFolder('/content/dataset_color/test',transform=t)
         print('loaded data')
         self.train_queue = torch.utils.data.DataLoader(
           train_data, batch_size=args.batch_size,
