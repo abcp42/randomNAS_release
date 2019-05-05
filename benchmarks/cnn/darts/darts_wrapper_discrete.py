@@ -60,7 +60,7 @@ class DartsWrapper:
         cudnn.deterministic=True
         torch.cuda.manual_seed_all(args.seed)
 
-
+        """
         train_transform, valid_transform = utils._data_transforms_cifar10(args)
         train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
         print('loaded data')
@@ -78,9 +78,18 @@ class DartsWrapper:
           train_data, batch_size=args.batch_size,
           sampler=torch.utils.data.sampler.SubsetRandomSampler(indices[split:num_train]),
           pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
+        """
+        train_data = dset.ImageFolder('/content/dataset_color_static/train')
+        valid_data = dset.ImageFolder('/content/dataset_color_static/test')
+        print('loaded data')
+        self.train_queue = torch.utils.data.DataLoader(
+          train_data, batch_size=args.batch_size,
+          pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
+
+        self.valid_queue = torch.utils.data.DataLoader(
+          valid_data, batch_size=args.batch_size,
+          pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
         
-        #self.train_queue = dset.ImageFolder('/content/dataset_color_static/train')
-        #self.valid_queue = dset.ImageFolder('/content/dataset_color_static/test')
 
         self.train_iter = iter(self.train_queue)
         self.valid_iter = iter(self.valid_queue)
@@ -152,8 +161,7 @@ class DartsWrapper:
       input, target = next(self.train_iter)
 
       self.model.train()
-      print('input: ',input)
-      a = 2/0
+      print('input: ',input.shape)
       n = input.size(0)
 
       input = Variable(input, requires_grad=False).cuda()
