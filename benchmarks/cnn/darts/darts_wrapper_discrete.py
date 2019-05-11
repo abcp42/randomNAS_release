@@ -95,7 +95,7 @@ class DartsWrapper:
           pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
 
         self.valid_queue = torch.utils.data.DataLoader(
-          valid_data, batch_size=1,
+          valid_data, batch_size=args.batch_size,
           pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
         
 
