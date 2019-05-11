@@ -61,6 +61,7 @@ class DartsWrapper:
         torch.cuda.manual_seed_all(args.seed)
 
     
+        """
         train_transform, valid_transform = utils._data_transforms_cifar10(args)
         train_data = dset.CIFAR10(root=args.data, train=True, download=True, transform=train_transform)
         print('loaded data')
@@ -86,8 +87,8 @@ class DartsWrapper:
             transforms.Resize((64,64), interpolation=2),
             transforms.ToTensor()
         ])
-        train_data = dset.ImageFolder('/content/dataset_color/train',transform=t)
-        valid_data = dset.ImageFolder('/content/dataset_color/test',transform=t)
+        train_data = dset.ImageFolder('/content/geoData/train',transform=t)
+        valid_data = dset.ImageFolder('/content/geoData/test',transform=t)
         print('loaded data')
         self.train_queue = torch.utils.data.DataLoader(
           train_data, batch_size=args.batch_size,
@@ -96,7 +97,7 @@ class DartsWrapper:
         self.valid_queue = torch.utils.data.DataLoader(
           valid_data, batch_size=1,
           pin_memory=True, num_workers=0, worker_init_fn=np.random.seed(args.seed))
-        """
+        
 
         self.train_iter = iter(self.train_queue)
         self.valid_iter = iter(self.valid_queue)
