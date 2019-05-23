@@ -210,6 +210,10 @@ class DartsWrapper:
       objs = utils.AvgrageMeter()
       top1 = utils.AvgrageMeter()
       top5 = utils.AvgrageMeter()
+    
+      import numpy as np
+      preds = np.asarray([])
+      targets = np.asarray([])
 
       weights = self.get_weights_from_arch(arch)
       self.set_model_weights(weights)
@@ -247,6 +251,11 @@ class DartsWrapper:
         objs.update(loss.data, n)
         top1.update(prec1.data, n)
         top5.update(prec5.data, n)
+        
+        #minha alteracao
+        _, predicted = torch.max(output.data, 1)
+        preds = np.concatenate((preds,predicted.cpu().numpy().ravel()))
+        targets = np.concatenate((targets,target.cpu().numpy().ravel()))
         
         if step % self.args.report_freq == 0:
           logging.info('valid %03d %e %f %f', step, objs.avg, top1.avg, top5.avg)
