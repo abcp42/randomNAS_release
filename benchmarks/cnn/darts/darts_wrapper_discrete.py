@@ -27,7 +27,7 @@ class AttrDict(dict):
 class DartsWrapper:
     def __init__(self, save_path, seed, batch_size, grad_clip, epochs, resume_iter=None, init_channels=16):
         args = {}
-        args['data'] = '/content/sample_data/'
+        args['data'] = '/content/data/'
         args['epochs'] = epochs
         args['learning_rate'] = 0.025
         args['batch_size'] = batch_size
@@ -87,8 +87,8 @@ class DartsWrapper:
             transforms.Resize((64,64), interpolation=2),
             transforms.ToTensor()
         ])
-        train_data = dset.ImageFolder('/content/geoData/train',transform=t)
-        valid_data = dset.ImageFolder('/content/geoData/test',transform=t)
+        train_data = dset.ImageFolder('/content/data/train',transform=t)
+        valid_data = dset.ImageFolder('/content/data/valid',transform=t)
         print('loaded data')
         self.train_queue = torch.utils.data.DataLoader(
           train_data, batch_size=args.batch_size,
