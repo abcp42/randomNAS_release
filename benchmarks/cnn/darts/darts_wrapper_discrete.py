@@ -260,6 +260,25 @@ class DartsWrapper:
         if step % self.args.report_freq == 0:
           logging.info('valid %03d %e %f %f', step, objs.avg, top1.avg, top5.avg)
 
+      print(preds.shape)
+      print(targets.shape)
+      print('np.unique(targets):',np.unique(targets))
+      print('np.unique(preds): ',np.unique(preds))
+      from sklearn.metrics import classification_report
+      from sklearn.metrics import accuracy_score
+      print(accuracy_score(targets, preds))
+      cr = classification_report(targets, preds,output_dict= True)
+      a1,a2,a3 = cr['macro avg']['f1-score'] ,cr['macro avg']['precision'],cr['macro avg']['recall'] 
+      topover = (a1+a2+a3)/3 
+      print(classification_report(targets, preds))
+      from sklearn.metrics import balanced_accuracy_score
+      from sklearn.metrics import accuracy_score
+      print(balanced_accuracy_score(targets, preds))
+      print(accuracy_score(targets, preds))
+      from sklearn.metrics import confusion_matrix
+      matrix = confusion_matrix(targets, preds)
+      print(matrix.diagonal()/matrix.sum(axis=1))
+      print(matrix)
       return 1-top1.avg
 
     def save(self):
