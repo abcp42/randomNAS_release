@@ -253,7 +253,7 @@ class DartsWrapper:
         top5.update(prec5.data, n)
         
         #minha alteracao
-        _, predicted = torch.max(output.data, 1)
+        _, predicted = torch.max(logits.data, 1)
         preds = np.concatenate((preds,predicted.cpu().numpy().ravel()))
         targets = np.concatenate((targets,target.cpu().numpy().ravel()))
         
